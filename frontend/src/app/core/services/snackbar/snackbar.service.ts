@@ -24,4 +24,13 @@ export class SnackbarService {
       panelClass: 'yellow-snackbar',
     });
   }
+
+  showSuccessMessage(message: string, action: string = '') {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      panelClass: 'green-snackbar',
+    });
+  }
 }
