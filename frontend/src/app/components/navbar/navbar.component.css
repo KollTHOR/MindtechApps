@@ -1,0 +1,37 @@
+
+mat-toolbar {
+  background-color: #000;
+  color: #ffeb3b;
+}
+
+.navbar-buttons button {
+  margin: 0 10px;
+  background-color: #ffeb3b;
+  color: #000;
+  border: none;
+}
+
+.navbar-buttons button:hover {
+  background-color: #fff176;
+  color: #000;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+mat-toolbar span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}

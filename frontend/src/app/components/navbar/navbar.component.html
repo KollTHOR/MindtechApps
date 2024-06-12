@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+  <span>PokeSite</span>
+  @if(username) {
+  {{ username }}
+  }
+  <span class="spacer"></span>
+  <div class="navbar-buttons">
+    @if(!isLoggedIn) {
+    <button mat-button (click)="navigateTo('login')">Login</button>
+    }
+    <button mat-button (click)="navigateTo('register')">Register</button>
+    @if(isLoggedIn) {
+    <button mat-button (click)="logout()">Logout</button>
+    }
+  </div>
+</mat-toolbar>
