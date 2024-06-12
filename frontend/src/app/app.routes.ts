@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './auth/register/register.component';
-import { LoginComponent } from './auth/login/login.component';
-import { PokemonListComponent } from './pokemon/list/list.component';
-import { PokemonDetailsComponent } from './pokemon/details/details.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { PokemonListComponent } from './components/pokemon/list/list.component';
+import { PokemonDetailsComponent } from './components/pokemon/details/details.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
