@@ -1,9 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
+import type { IApiRespMessageModel } from '../../models/IApiRespMessageModel';
+import type { IRegisterUser } from '../../models/IRegisterUser';
+import { ILoginUser } from '../../models/ILoginUser';
+import { ILoginApiData } from '../../models/ILoginApiData';
 
 @Injectable({
   providedIn: 'root',
@@ -27,21 +31,37 @@ export class AuthService {
     localStorage.setItem('user', userName);
   }
 
-  // login(loginData: any): Observable<any> {
-  //   return this.http
-  //     .post<ILoginApiData>(`${environment.baseUrl}/login`, loginData, {
-  //       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  //     })
-  //     .pipe(
-  //       tap((response: ILoginApiData) => {
-  //         if (response.status === 202) {
-  //           this.router.navigate(['/pokemons']);
-  //           this.setToken(response.token);
-  //           this.setUserName(response.username);
-  //         }
-  //       })
-  //     );
-  // }
+  login(loginData: ILoginUser): Observable<ILoginApiData> {
+    return this.http
+      .post<ILoginApiData>(`${environment.baseUrl}/login`, loginData, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      })
+      .pipe(
+        tap((response: ILoginApiData) => {
+          if (response.status === 202) {
+            this.router.navigate(['/pokemons']);
+            this.setToken(response.token);
+            this.setUserName(response.username);
+          }
+        })
+      );
+  }
+
+  register(registerData: IRegisterUser): Observable<IApiRespMessageModel> {
+    return this.http
+      .post<IApiRespMessageModel>(
+        `${environment.baseUrl}/register`,
+        registerData,
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+      )
+      .pipe(
+        tap((response: any) => {
+          if (response.status === 202) {
+            this.router.navigate(['/login']);
+          }
+        })
+      );
+  }
 
   clearLocalStorage(): void {
     localStorage.clear();
@@ -66,7 +86,12 @@ export class AuthService {
 
   isTokenValid(): boolean {
     const token: string = this.getToken();
+    if (!token) {
+      return false;
+    }
+
     const tokenPayload: any = jwtDecode(token);
+
     if (Date.now() > tokenPayload.exp * 1000) {
       this.logout();
       return false;
