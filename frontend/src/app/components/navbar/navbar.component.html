@@ -1,15 +1,19 @@
 <mat-toolbar color="primary">
-  <span (click)="navigateTo('/')">PokeSite</span>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/3/39/Pokeball.PNG?20071128232341"
+    alt="pokeball"
+    height="30px"
+  />
+  <span (click)="navigateTo('/pokemons')">PokeSite</span>
   @if(username) {
-  <span>{{ username }}</span>
+  <span>" "{{ username }}</span>
   }
   <span class="spacer"></span>
   <div class="navbar-buttons">
     @if(!isLoggedIn) {
     <button mat-button (click)="navigateTo('login')">Login</button>
-    }
     <button mat-button (click)="navigateTo('register')">Register</button>
-    @if(isLoggedIn) {
+    } @if(isLoggedIn) {
     <button mat-button (click)="logout()">Logout</button>
     }
   </div>

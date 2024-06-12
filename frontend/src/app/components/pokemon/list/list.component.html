@@ -1,1 +1,30 @@
-<p>list works!</p>
+<div class="container">
+  <label for="pokemonType">Select a Pokémon type:</label>
+  <mat-select
+    placeholder="Select a Pokémon type"
+    [(ngModel)]="selectedTypeUrl"
+    (selectionChange)="onTypeChange()"
+  >
+    <mat-option *ngFor="let type of pokemonTypes" [value]="type.url">{{
+      type.name
+    }}</mat-option>
+  </mat-select>
+
+  <div *ngIf="pokemons.length > 0" class="pokemon-container">
+    <h2>Pokémons of Selected Type:</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let pokemon of pokemons | slice : 0 : 10">
+        <img
+          matListAvatar
+          [src]="
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+            getPokemonId(pokemon.url) +
+            '.png'
+          "
+          alt="{{ pokemon.name }}"
+        />
+        <h3 matLine>{{ pokemon.name }}</h3>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
