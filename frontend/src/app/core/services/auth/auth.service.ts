@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import type { IApiRespMessageModel } from '../../models/IApiRespMessageModel';
@@ -14,6 +14,10 @@ import { ILoginApiData } from '../../models/ILoginApiData';
 })
 export class AuthService {
   constructor(private router: Router, private http: HttpClient) {}
+
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$: Observable<boolean> =
+    this.isAuthenticatedSubject.asObservable();
 
   getToken(): string {
     return localStorage.getItem('token') as string;
@@ -39,6 +43,7 @@ export class AuthService {
       .pipe(
         tap((response: ILoginApiData) => {
           if (response.status === 202) {
+            this.isAuthenticatedSubject.next(true);
             this.router.navigate(['/pokemons']);
             this.setToken(response.token);
             this.setUserName(response.username);
@@ -70,6 +75,7 @@ export class AuthService {
   logout(): void {
     this.clearLocalStorage();
     this.router.navigate(['']);
+    this.isAuthenticatedSubject.next(false);
   }
 
   checkLocalStorageData(): void {
