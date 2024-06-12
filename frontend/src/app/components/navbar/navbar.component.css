@@ -1,4 +1,3 @@
-
 mat-toolbar {
   background-color: #000;
   color: #ffeb3b;
@@ -24,6 +23,10 @@ mat-toolbar {
 
 .spacer {
   flex: 1 1 auto;
+}
+
+span {
+  cursor: pointer;
 }
 
 .navbar-buttons {

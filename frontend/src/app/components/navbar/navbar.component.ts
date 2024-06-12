@@ -20,7 +20,9 @@ export class NavbarComponent implements OnInit {
   username = '';
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      this.isLoggedIn = isAuthenticated;
+    });
     this.username = this.authService.getUserName();
   }
 
