@@ -1,23 +1,15 @@
-# Node.js / Express
-node_modules/
-*.log
-.env
-coverage/
-*.env
-npm-debug.log
-yarn-error.log
-
-# Angular
-frontend/node_modules/
-frontend/.angular/cache/
-frontend/.angular/cache/
-frontend/src/environments/environment.prod.ts
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
-frontend/dist
-frontend/tmp
-frontend/out-tsc
-frontend/bazel-out
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
 # IDEs and editors
 .idea/
